@@ -1,0 +1,15 @@
+﻿<Window x:Class="EncodingConversion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EncodingConversion"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="118" Width="582" ResizeMode="NoResize">
+    <Grid Background="Gray">
+        <TextBlock x:Name="Output" Background="White" HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="15" Width="540"/>
+        <Button Content="Convert" HorizontalAlignment="Left" Margin="13,51,0,0" VerticalAlignment="Top" Click="Convert_Click"/>
+        <Button Content="FolderChoose" HorizontalAlignment="Left" Margin="90,51,0,0" VerticalAlignment="Top" Click="FolderChoose_Click"/>
+
+    </Grid>
+</Window>
