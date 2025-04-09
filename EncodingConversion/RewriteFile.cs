@@ -13,7 +13,7 @@ namespace EncodingConversion
         }
 
         public bool Rewrite(string filepath) {
-            String line;
+            string? line;
             String decodeFilePath = filepath + ".decode";
             try
             {

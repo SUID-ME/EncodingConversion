@@ -6,7 +6,7 @@ namespace EncodingConversion
     {
         private RewriteFile _rewriteFile;
 
-        private List<string> _support_extensions = new List<string>() { ".cs" };
+        private List<string> _support_extensions = new List<string>() { ".cs", ".cpp", ".h" };
 
         public RecursiveTraversal(RewriteFile rewrite)
         {
