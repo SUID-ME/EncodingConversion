@@ -1,16 +1,8 @@
-﻿using System.DirectoryServices;
+﻿using EncodingConversion.Logic;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace EncodingConversion
+namespace EncodingConversion.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -30,7 +22,7 @@ namespace EncodingConversion
             Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
             _rewriteFile = new RewriteFile(win1251);
-             _traversal = new RecursiveTraversal(_rewriteFile);
+            _traversal = new RecursiveTraversal(_rewriteFile);
         }
 
         public void Convert_Click(object sender, EventArgs e)
@@ -51,7 +43,8 @@ namespace EncodingConversion
             {
                 _rootDir = dialog.FolderName;
                 Output.Text = _rootDir;
-            } else
+            }
+            else
             {
                 Output.Text = "Ошибка при выборе папки";
             }

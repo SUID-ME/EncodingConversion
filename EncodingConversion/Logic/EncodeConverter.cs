@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace EncodingConversion
+namespace EncodingConversion.Logic
 {
     public class EncodeConverter
     {

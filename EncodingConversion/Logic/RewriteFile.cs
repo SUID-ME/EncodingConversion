@@ -1,20 +1,22 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using System.Windows;
-using System.IO;
 
-namespace EncodingConversion
+namespace EncodingConversion.Logic
 {
     public class RewriteFile
     {
         private Encoding _encFrom;
 
-        public RewriteFile(Encoding encoderFrom) {
+        public RewriteFile(Encoding encoderFrom)
+        {
             _encFrom = encoderFrom;
         }
 
-        public bool Rewrite(string filepath) {
+        public bool Rewrite(string filepath)
+        {
             string? line;
-            String decodeFilePath = filepath + ".decode";
+            string decodeFilePath = filepath + ".decode";
             try
             {
                 StreamWriter sw = new StreamWriter(decodeFilePath);

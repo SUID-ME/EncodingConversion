@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace EncodingConversion
+namespace EncodingConversion.Logic
 {
     public class RecursiveTraversal
     {
@@ -23,7 +23,7 @@ namespace EncodingConversion
             string[] allfiles = Directory.GetFiles(curretDir);
             foreach (string file in allfiles)
             {
-                string extension = System.IO.Path.GetExtension(file);
+                string extension = Path.GetExtension(file);
                 if (_checkSupportExt(extension))
                 {
                     _rewriteFile.Rewrite(file);
