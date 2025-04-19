@@ -36,7 +36,7 @@ namespace EncodingConversion.Logic
             }
             catch (Exception e)
             {
-                MessageBox.Show("Exception: " + e.Message, "Error!");
+                //MessageBox.Show("Exception: " + e.Message, "Error!");
                 return false;
             }
 
