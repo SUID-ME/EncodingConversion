@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:EncodingConversion.AvaloniaUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="150"
+             x:Class="EncodingConversion.AvaloniaUI.Views.RecodingView"
+			 x:DataType="vm:RecordingVM">
+	<Design.DataContext>
+		<vm:RecordingVM/>
+	</Design.DataContext>
+	
+	<Grid Background="SlateGray">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Column="0" Grid.Row="0" Margin="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="92*"/>
+				<ColumnDefinition Width="8*"/>
+			</Grid.ColumnDefinitions>
+
+			<Border CornerRadius="5" BorderBrush="DimGray" Background="LightGray" BorderThickness="1.4">
+				<TextBlock Grid.Column="0" Text="{Binding OutPutText}" Margin="3" VerticalAlignment="Center"
+					FontSize="16" TextWrapping="Wrap"/>
+			</Border>
+			<Button Command="{Binding PickRootDir}"
+				Grid.Column="1" FontFamily="Segoe MDL2 Assets" Content="&#xE8B7;" FontSize="30"
+				HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+				HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+		</Grid>
+
+		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+			<Button Command="{Binding RecodingCommand}" Content="Convert" FontSize="16" VerticalAlignment="Center"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

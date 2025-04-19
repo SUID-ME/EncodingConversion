@@ -4,7 +4,10 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using EncodingConversion.AvaloniaUI.ViewModels;
 using EncodingConversion.AvaloniaUI.Views;
+using ReactiveUI;
+using Splat;
 using System.Linq;
+using Avalonia.ReactiveUI;
 
 namespace EncodingConversion.AvaloniaUI
 {
@@ -17,6 +20,9 @@ namespace EncodingConversion.AvaloniaUI
 
         public override void OnFrameworkInitializationCompleted()
         {
+            RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
+            Locator.CurrentMutable.Register<IActivationForViewFetcher>(() => new AvaloniaActivationForViewFetcher());
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
