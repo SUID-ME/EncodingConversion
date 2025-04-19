@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EncodingConversion.Logic
 {
-    public class RecodingLogic
+    public class RecodingLogic : IRecoding
     {
         private RewriteFile _rewriteFile;
         private RecursiveTraversal _traversal;

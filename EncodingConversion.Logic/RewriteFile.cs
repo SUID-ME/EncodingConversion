@@ -4,11 +4,11 @@ using System.Windows;
 
 namespace EncodingConversion.Logic
 {
-    public class RewriteFile
+    internal class RewriteFile
     {
         private Encoding _encFrom;
 
-        public RewriteFile(Encoding encoderFrom)
+        internal RewriteFile(Encoding encoderFrom)
         {
             _encFrom = encoderFrom;
         }

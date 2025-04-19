@@ -10,7 +10,7 @@ namespace EncodingConversion.WPF
     public partial class MainWindow : Window
     {
         #region Fields
-        private RecodingLogic recodingLogic;
+        private IRecoding recodingLogic;
         private string _rootDir;
 
         private static string
@@ -28,7 +28,7 @@ namespace EncodingConversion.WPF
 
             ConvertButton.IsEnabled = false;
 
-            recodingLogic = new();
+            recodingLogic = new RecodingLogic();
             Output.Text = _dirPickSuggestion;
         }
         #endregion Constructor

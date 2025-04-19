@@ -2,13 +2,13 @@
 
 namespace EncodingConversion.Logic
 {
-    public class RecursiveTraversal
+    internal class RecursiveTraversal
     {
         private RewriteFile _rewriteFile;
 
         private List<string> _support_extensions = new List<string>() { ".cs", ".cpp", ".h" };
 
-        public RecursiveTraversal(RewriteFile rewrite)
+        internal RecursiveTraversal(RewriteFile rewrite)
         {
             _rewriteFile = rewrite;
         }
