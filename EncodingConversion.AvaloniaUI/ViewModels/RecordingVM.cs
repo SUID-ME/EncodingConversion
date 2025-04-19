@@ -72,7 +72,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             }
 
             //Output.Text = _recodingDirText + _rootDir;
-            //recodingLogic.Run(RootDir);
+            recodingLogic.Run(RootDir);
             OutPutText = _recodingDoneText;
             RootDir = string.Empty;
         }
@@ -82,7 +82,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             var folders = await ShowFilePiker.Handle(Unit.Default).FirstAsync();
             if (folders?.Count > 0)
             {
-                RootDir = folders.First().Path.ToString();
+                RootDir = folders.First().Path.LocalPath;
             }
         }
         #endregion Methods
