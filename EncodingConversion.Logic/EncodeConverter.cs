@@ -2,12 +2,12 @@
 
 namespace EncodingConversion.Logic
 {
-    public class EncodeConverter
+    internal class EncodeConverter
     {
         private Encoding _from;
         private Encoding _to;
 
-        public EncodeConverter(Encoding encFrom, Encoding encTo)
+        internal EncodeConverter(Encoding encFrom, Encoding encTo)
         {
             _from = encFrom;
             _to = encTo;
