@@ -56,18 +56,22 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 
-						<Border Grid.Column="0" CornerRadius="5"
-								BorderThickness="1" BorderBrush="DimGray" Background="LightGray">
-							<ListBox ItemsSource="{Binding ExtensionInfos}" 
+						<Border Grid.Column="0" CornerRadius="10"
+								BorderThickness="4" BorderBrush="DimGray" Background="DarkGray">
+							<ListBox ItemsSource="{Binding ExtensionInfos}"
 									 SelectedItem="{Binding SelectedExtension}" 
 									 BackgroundSizing="InnerBorderEdge"
-									 Background="Transparent" MinWidth="160">
+									 Background="Transparent" MinWidth="15">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<StackPanel Orientation="Horizontal" Margin="1">
-											<CheckBox IsChecked="{Binding IsEnable}"/>
-											<TextBox Text="{Binding Symbols}" FontSize="18"/>
-										</StackPanel>
+										<Border Background="SlateGray" CornerRadius="10" 
+												BorderBrush="DimGray" BorderThickness="2">
+											<StackPanel Orientation="Horizontal" Margin="5" Spacing="10">
+												<CheckBox IsChecked="{Binding IsEnable}" Content="Вкл"/>
+												<TextBox Text="{Binding Symbols}" FontSize="18"/>
+											</StackPanel>
+										</Border>
+
 									</DataTemplate>
 								</ListBox.ItemTemplate>
 							</ListBox>
@@ -75,9 +79,11 @@
 
 						<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Spacing="3" Margin="5">
 							<Button Content="Add Extension" Command="{Binding AddExtensionCommand}"
-									Background="LightGray" HorizontalAlignment="Stretch"/>
+									Background="LightGray" BorderThickness="1" BorderBrush="Black" 
+									HorizontalAlignment="Stretch"/>
 							<Button Content="Remove Extension" Command="{Binding RemoveSelectedExtCommand}"
-									Background="LightGray" HorizontalAlignment="Stretch"/>
+									Background="LightGray" BorderThickness="1" BorderBrush="Black" 
+									HorizontalAlignment="Stretch"/>
 						</StackPanel>
 					</Grid>
 				</Border>
