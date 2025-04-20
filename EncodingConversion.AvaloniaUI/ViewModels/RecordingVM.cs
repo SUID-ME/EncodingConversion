@@ -20,6 +20,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         private string _rootDir = string.Empty;
 
         private readonly ObservableAsPropertyHelper<bool> _isCanExecuteRecording;
+        private readonly ObservableAsPropertyHelper<bool> _isCanExecuteRemoveExt;
 
         private static string
             _recodingDirText = "Начата перекодировка в корневой папке ",
@@ -40,6 +41,9 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 .Select(rootDir => !(string.IsNullOrEmpty(rootDir)) &&
                     Directory.Exists(rootDir))
                 .ToProperty(this, x => x.IsCanExecuteRecoding);
+            _isCanExecuteRemoveExt = this.WhenAnyValue(x => x.SelectedExtension).
+                Select(extInfo => (extInfo != null))
+                .ToProperty(this, x => x.IsCanExecuteRemoveExt);
 
             _extensionInfos = new ObservableCollection<ExtensionInfo>()
             {
@@ -52,7 +56,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
             AddExtensionCommand = ReactiveCommand.Create(AddNewExtension);
-            RemoveSelectedExtCommand = ReactiveCommand.Create(RemoveExtension);
+            RemoveSelectedExtCommand = ReactiveCommand.Create(RemoveExtension, this.WhenAnyValue(x => x.IsCanExecuteRemoveExt));
 
             OutPutText = _dirPickSuggestion;
         }
@@ -80,6 +84,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         }
 
         public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
+        public bool IsCanExecuteRemoveExt => _isCanExecuteRemoveExt.Value;
         public ReactiveCommand<Unit, Unit> RecodingCommand { get; }
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
         public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
