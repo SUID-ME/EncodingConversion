@@ -12,11 +12,11 @@
 
 	<Grid Background="SlateGray">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="20*"/>
+			<RowDefinition Height="20*" MaxHeight="60"/>
 			<RowDefinition Height="80*"/>
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Column="0" Grid.Row="0" Margin="5">
+		<Grid Grid.Column="0" Grid.Row="0" Margin="5" VerticalAlignment="Top">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="92*"/>
 				<ColumnDefinition Width="8*"/>
@@ -47,7 +47,7 @@
 								<DataTemplate>
 									<StackPanel Orientation="Horizontal">
 										<CheckBox IsChecked="{Binding IsEnable}"/>
-										<TextBlock Text="{Binding Symbols}" VerticalAlignment="Center" FontSize="18"/>
+										<TextBox Text="{Binding Symbols}" FontSize="18"/>
 									</StackPanel>
 								</DataTemplate>
 							</ListBox.ItemTemplate>
