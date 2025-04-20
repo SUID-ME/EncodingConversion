@@ -30,6 +30,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
 
         private string _outputText = string.Empty;
         private readonly ObservableCollection<ExtensionInfo> _extensionInfos;
+        private ExtensionInfo _selectedExt;
         #endregion Fields
 
         #region Constructor
@@ -51,6 +52,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
             AddExtensionCommand = ReactiveCommand.Create(AddNewExtension);
+            RemoveSelectedExtCommand = ReactiveCommand.Create(RemoveExtension);
 
             OutPutText = _dirPickSuggestion;
         }
@@ -71,11 +73,17 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         }
 
         public ObservableCollection<ExtensionInfo> ExtensionInfos => _extensionInfos;
+        public ExtensionInfo SelectedExtension
+        {
+            get { return _selectedExt; }
+            set { this.RaiseAndSetIfChanged(ref _selectedExt, value); }
+        }
 
         public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
         public ReactiveCommand<Unit, Unit> RecodingCommand { get; }
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
-        public ReactiveCommand<Unit, Unit> AddExtensionCommand {  get; }
+        public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
+        public ReactiveCommand<Unit, Unit> RemoveSelectedExtCommand { get; }
         #endregion Properties
 
         #region Methods
@@ -110,6 +118,14 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         public void AddNewExtension()
         {
             ExtensionInfos.Add(new("."));
+        }
+
+        public void RemoveExtension()
+        {
+            if (SelectedExtension != null)
+            {
+                ExtensionInfos.Remove(SelectedExtension);
+            }
         }
 
         private List<ExtensionInfo> GetDefaultExtensions()

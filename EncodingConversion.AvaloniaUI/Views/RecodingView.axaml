@@ -48,15 +48,23 @@
 				</Grid.ColumnDefinitions>
 
 				<!--#region ExtensionsList-->
-				<Grid Grid.Column="0">					
-					<StackPanel Margin="5" Orientation="Horizontal">
-						<Border CornerRadius="5" BorderThickness="1"
-								BorderBrush="DimGray" Background="LightGray">
-							<ListBox ItemsSource="{Binding ExtensionInfos}" BackgroundSizing="InnerBorderEdge"
-									 Background="Transparent">
+				<Border Grid.Column="0" Background="DimGray"
+						CornerRadius="5" Margin="5">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+
+						<Border Grid.Column="0" CornerRadius="5"
+								BorderThickness="1" BorderBrush="DimGray" Background="LightGray">
+							<ListBox ItemsSource="{Binding ExtensionInfos}" 
+									 SelectedItem="{Binding SelectedExtension}" 
+									 BackgroundSizing="InnerBorderEdge"
+									 Background="Transparent" MinWidth="160">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<StackPanel Orientation="Horizontal">
+										<StackPanel Orientation="Horizontal" Margin="1">
 											<CheckBox IsChecked="{Binding IsEnable}"/>
 											<TextBox Text="{Binding Symbols}" FontSize="18"/>
 										</StackPanel>
@@ -64,12 +72,15 @@
 								</ListBox.ItemTemplate>
 							</ListBox>
 						</Border>
-						<StackPanel>
-							<Button Content="Add Extension" Command="{Binding AddExtensionCommand}"/>
+
+						<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Spacing="3" Margin="5">
+							<Button Content="Add Extension" Command="{Binding AddExtensionCommand}"
+									Background="LightGray" HorizontalAlignment="Stretch"/>
+							<Button Content="Remove Extension" Command="{Binding RemoveSelectedExtCommand}"
+									Background="LightGray" HorizontalAlignment="Stretch"/>
 						</StackPanel>
-						
-					</StackPanel>
-				</Grid>
+					</Grid>
+				</Border>
 				<!--#endregion ExtensionsList-->
 
 				<!-- #region Properties -->
