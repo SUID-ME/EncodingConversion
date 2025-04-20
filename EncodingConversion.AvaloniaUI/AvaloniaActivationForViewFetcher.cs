@@ -1,10 +1,8 @@
-﻿using Avalonia.Controls;
-using Avalonia.VisualTree;
-using Avalonia.ReactiveUI;
+﻿using Avalonia;
+using Avalonia.Controls;
 using ReactiveUI;
 using System;
 using System.Reactive.Linq;
-using Avalonia;
 
 public class AvaloniaActivationForViewFetcher : IActivationForViewFetcher
 {

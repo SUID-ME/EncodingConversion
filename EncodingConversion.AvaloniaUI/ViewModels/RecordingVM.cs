@@ -1,13 +1,14 @@
 ﻿using Avalonia.Platform.Storage;
+using DynamicData;
+using DynamicData.Binding;
 using EncodingConversion.Logic;
 using ReactiveUI;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EncodingConversion.AvaloniaUI.ViewModels
@@ -25,20 +26,28 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             _recodingDoneText = "Перекодировка завершена. Можете продолжить, выбрав новую папку",
             _dirPickErrorText = "Папка не выбрана",
             _dirPickSuggestion = "Выберите корневую папку",
-            _filePickTitle = "Show a folder";
+            _dirPickedDir = "Выбрана папка: ";
 
         private string _outputText = string.Empty;
+        private readonly ObservableCollection<ExtensionInfo> _extensionInfos;
         #endregion Fields
 
         #region Constructor
         public RecordingVM()
         {
             _isCanExecuteRecording = this.WhenAnyValue(x => x.RootDir)
-                .Select(rootDir => !string.IsNullOrEmpty(rootDir) &&
+                .Select(rootDir => !(string.IsNullOrEmpty(rootDir)) &&
                     Directory.Exists(rootDir))
                 .ToProperty(this, x => x.IsCanExecuteRecoding);
 
-            _recodingLogic = new RecodingLogic();
+            _extensionInfos = new ObservableCollection<ExtensionInfo>()
+            {
+                GetDefaultExtensions()
+            };
+
+            _recodingLogic = new RecodingLogic(_extensionInfos.ToList());
+
+
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
 
@@ -60,8 +69,9 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             set { this.RaiseAndSetIfChanged(ref _rootDir, value); }
         }
 
-        public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
+        public ObservableCollection<ExtensionInfo> ExtensionInfos => _extensionInfos;
 
+        public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
         public ReactiveCommand<Unit, Unit> RecodingCommand { get; }
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
         #endregion Properties
@@ -69,7 +79,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         #region Methods
         public async Task RunRecodingMethodAsync()
         {
-            if (string.IsNullOrEmpty(RootDir))
+            if (string.IsNullOrEmpty(RootDir) || Directory.Exists(RootDir) == false)
             {
                 OutPutText = _dirPickErrorText;
                 return;
@@ -85,15 +95,24 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             RootDir = string.Empty;
         }
 
-
-
         public async Task PickRootDirAsync()
         {
             var folders = await ShowFilePiker.Handle(Unit.Default).FirstAsync();
             if (folders?.Count > 0)
             {
                 RootDir = folders.First().Path.LocalPath;
+                OutPutText = _dirPickedDir + RootDir;
             }
+        }
+
+        private List<ExtensionInfo> GetDefaultExtensions()
+        {
+            return new List<ExtensionInfo>()
+            {
+                new ExtensionInfo(".cs"),
+                new ExtensionInfo(".cpp"),
+                new ExtensionInfo(".h")
+            };
         }
         #endregion Methods
     }

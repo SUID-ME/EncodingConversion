@@ -1,9 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
-using EncodingConversion.AvaloniaUI.ViewModels;
-using ReactiveUI;
-using System;
-using System.Reactive.Disposables;
 
 namespace EncodingConversion.AvaloniaUI.Views
 {

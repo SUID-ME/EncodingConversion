@@ -1,21 +1,27 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 
 namespace EncodingConversion.Logic
 {
-    internal class RecursiveTraversal
+    internal class RecursiveTraversal(RewriteFile rewrite, List<ExtensionInfo> choosen)
     {
-        private RewriteFile _rewriteFile;
+        private RewriteFile _rewriteFile = rewrite;
+        private List<ExtensionInfo> _choosenExtension = choosen;
 
-        private List<string> _support_extensions = new List<string>() { ".cs", ".cpp", ".h" };
-
-        internal RecursiveTraversal(RewriteFile rewrite)
-        {
-            _rewriteFile = rewrite;
-        }
+        private object _syncLock = new();
 
         public void RunTraversal(string rootDir)
         {
             _recursion_logic(rootDir);
+        }
+
+        public void UpdateExtensionList(List<ExtensionInfo> extensions)
+        {
+            lock(_syncLock)
+            {
+                _choosenExtension = extensions;
+            }
+
         }
 
         private void _recursion_logic(string curretDir)
@@ -26,7 +32,10 @@ namespace EncodingConversion.Logic
                 string extension = Path.GetExtension(file);
                 if (_checkSupportExt(extension))
                 {
-                    _rewriteFile.Rewrite(file);
+                    if (_rewriteFile.Rewrite(file) == false)
+                    {
+                        Debug.WriteLine($"File '{file} is not recoding'");
+                    }
                 }
             }
 
@@ -40,13 +49,17 @@ namespace EncodingConversion.Logic
 
         private bool _checkSupportExt(string extension)
         {
-            foreach (string ext in _support_extensions)
+            lock(_syncLock)
             {
-                if (ext == extension)
+                foreach (var ext in _choosenExtension)
                 {
-                    return true;
+                    if (ext.IsEnable == true && ext.Symbols == extension)
+                    {
+                        return true;
+                    }
                 }
             }
+
             return false;
         }
     }

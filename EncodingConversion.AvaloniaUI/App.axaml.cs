@@ -2,12 +2,12 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
 using EncodingConversion.AvaloniaUI.ViewModels;
 using EncodingConversion.AvaloniaUI.Views;
 using ReactiveUI;
 using Splat;
 using System.Linq;
-using Avalonia.ReactiveUI;
 
 namespace EncodingConversion.AvaloniaUI
 {

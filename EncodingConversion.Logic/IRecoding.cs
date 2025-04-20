@@ -9,5 +9,6 @@ namespace EncodingConversion.Logic
     public interface IRecoding
     {
         public void Run(string rootDir);
+        public List<ExtensionInfo> ExtensionInfos { get; set; }
     }
 }
