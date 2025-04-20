@@ -1,0 +1,3 @@
+[submodule "SettingsJsonParser"]
+	path = SettingsJsonParser
+	url = https://github.com/SUID-ME/SettingsJsonParser
