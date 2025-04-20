@@ -1,19 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using ReactiveUI;
+using SeamSearchLaserScan.Logic.ProjectSettings;
 
 namespace EncodingConversion.Logic
 {
-    public class ExtensionInfo(string ext, bool isEnable = true) : ReactiveObject
+    [DataContract]
+    public class ExtensionInfo(string ext, bool isEnable = true) : ReactiveObject, ISettingsData
     {
         private string _extensionSymbols = ext;
         private bool _isEnable = isEnable;
 
+        [DataMember]
         public string Symbols
         {
             get { return _extensionSymbols; }
             set {  this.RaiseAndSetIfChanged(ref _extensionSymbols, value); }
         }
+
+        [DataMember]
         public bool IsEnable
         {
             get { return _isEnable; }

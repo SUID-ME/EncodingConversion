@@ -3,6 +3,7 @@ using DynamicData;
 using DynamicData.Binding;
 using EncodingConversion.Logic;
 using ReactiveUI;
+using SeamSearchLaserScan.Logic.ProjectSettings;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using EncodingConversion.Logic.Settings;
 
 namespace EncodingConversion.AvaloniaUI.ViewModels
 {
@@ -45,10 +47,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 Select(extInfo => (extInfo != null))
                 .ToProperty(this, x => x.IsCanExecuteRemoveExt);
 
-            _extensionInfos = new ObservableCollection<ExtensionInfo>()
-            {
-                GetDefaultExtensions()
-            };
+            _extensionInfos = GetSettingsInfo();
 
             _recodingLogic = new RecodingLogic(_extensionInfos);
 
@@ -131,6 +130,17 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             {
                 ExtensionInfos.Remove(SelectedExtension);
             }
+        }
+
+        private ObservableCollection<ExtensionInfo> GetSettingsInfo()
+        {
+            var ret = App.ProjectSettings.ExtensionInfoData;
+            if (ret != null && ret.Count == 0)
+            {
+                ret.AddRange(GetDefaultExtensions());
+            }
+
+            return ret;
         }
 
         private List<ExtensionInfo> GetDefaultExtensions()

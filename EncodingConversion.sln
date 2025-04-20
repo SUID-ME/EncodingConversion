@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingConversion.WPF", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingConversion.Logic", "EncodingConversion.Logic\EncodingConversion.Logic.csproj", "{243E471F-2617-4BB7-9527-4A12C91920DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingConversion.AvaloniaUI", "..\EncodingConversion\EncodingConversion.AvaloniaUI\EncodingConversion.AvaloniaUI.csproj", "{5C528515-0EA2-480C-BB08-22EA917E672D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncodingConversion.AvaloniaUI", "EncodingConversion.AvaloniaUI\EncodingConversion.AvaloniaUI.csproj", "{5C528515-0EA2-480C-BB08-22EA917E672D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingsJsonParser", "SettingsJsonParser\SettingsJsonParser\SettingsJsonParser.csproj", "{BA2A0F02-7258-459A-20DF-CC2A0E40DF66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5C528515-0EA2-480C-BB08-22EA917E672D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C528515-0EA2-480C-BB08-22EA917E672D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C528515-0EA2-480C-BB08-22EA917E672D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA2A0F02-7258-459A-20DF-CC2A0E40DF66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA2A0F02-7258-459A-20DF-CC2A0E40DF66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA2A0F02-7258-459A-20DF-CC2A0E40DF66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA2A0F02-7258-459A-20DF-CC2A0E40DF66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,14 +5,44 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using EncodingConversion.AvaloniaUI.ViewModels;
 using EncodingConversion.AvaloniaUI.Views;
+using EncodingConversion.Logic;
+using EncodingConversion.Logic.Settings;
 using ReactiveUI;
+using SeamSearchLaserScan.Logic.ProjectSettings;
 using Splat;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace EncodingConversion.AvaloniaUI
 {
     public partial class App : Application
     {
+        private static object _settingsSync = new object();
+        private static ProjectSettingsLoader<ProjectSettings> _settingsLoader;
+
+        public static ProjectSettings ProjectSettings
+        {
+            get
+            {
+                lock (_settingsSync)
+                {
+                    return _settingsLoader.Settings;
+                }
+            }
+        }
+
+        public static ProjectSettingsLoader<ProjectSettings> ProjectSettingsLoader
+        {
+            get
+            {
+                lock (_settingsSync)
+                {
+                    return _settingsLoader;
+                }
+            }
+        }
+
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -22,6 +52,8 @@ namespace EncodingConversion.AvaloniaUI
         {
             RxApp.MainThreadScheduler = AvaloniaScheduler.Instance;
             Locator.CurrentMutable.Register<IActivationForViewFetcher>(() => new AvaloniaActivationForViewFetcher());
+
+            _settingsLoader = new ProjectSettingsLoader<ProjectSettings>(new ProjectSettings());
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {

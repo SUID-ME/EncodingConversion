@@ -8,5 +8,10 @@ namespace EncodingConversion.AvaloniaUI.Views
         {
             InitializeComponent();
         }
+
+        private void OnWindowClosing(object? sender, WindowClosingEventArgs e)
+        {
+            App.ProjectSettingsLoader.WriteSettings();
+        }
     }
 }
