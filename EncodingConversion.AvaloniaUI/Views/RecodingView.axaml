@@ -9,7 +9,7 @@
 	<Design.DataContext>
 		<vm:RecordingVM/>
 	</Design.DataContext>
-	
+
 	<Grid Background="SlateGray">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20*"/>
@@ -38,20 +38,23 @@
 				<ColumnDefinition Width="20*"/>
 			</Grid.ColumnDefinitions>
 
-			<StackPanel Orientation="Horizontal">
-				<Border Margin="5" CornerRadius="5" BorderThickness="1" BorderBrush="DimGray">
-					<ListBox ItemsSource="{Binding ExtensionInfos}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<CheckBox IsChecked="{Binding IsEnable}"/>
-									<TextBlock Text="{Binding Symbols}" VerticalAlignment="Center" FontSize="18"/>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-				</Border>
-			</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Border Margin="5" CornerRadius="5" BorderThickness="1" 
+							BorderBrush="DimGray" Background="LightGray">
+						<ListBox ItemsSource="{Binding ExtensionInfos}" BackgroundSizing="InnerBorderEdge"
+								 Background="Transparent">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
+										<CheckBox IsChecked="{Binding IsEnable}"/>
+										<TextBlock Text="{Binding Symbols}" VerticalAlignment="Center" FontSize="18"/>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</Border>
+				</StackPanel>
+
 
 			<Grid Grid.Column="1" Margin="5">
 				<Button Command="{Binding RecodingCommand}" Content="Convert" FontSize="16" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
