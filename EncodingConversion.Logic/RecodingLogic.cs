@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ namespace EncodingConversion.Logic
     {
         private RewriteFile _rewriteFile;
         private RecursiveTraversal _traversal;
-        private List<ExtensionInfo> _choosenExt;
+        private ObservableCollection<ExtensionInfo> _choosenExt;
 
-        public RecodingLogic(List<ExtensionInfo> extensions = null)
+        public RecodingLogic(ObservableCollection<ExtensionInfo> extensions = null)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding win1251 = Encoding.GetEncoding("Windows-1251");
@@ -21,7 +22,7 @@ namespace EncodingConversion.Logic
 
             if (extensions == null)
             {
-                extensions = new List<ExtensionInfo>() {
+                extensions = new ObservableCollection<ExtensionInfo>() {
                     new ExtensionInfo(".tst1"),
                     new ExtensionInfo(".tst2"),
                     new ExtensionInfo(".tst3"),
@@ -39,7 +40,7 @@ namespace EncodingConversion.Logic
             _traversal.RunTraversal(rootDir);
         }
 
-        public List<ExtensionInfo> ExtensionInfos
+        public ObservableCollection<ExtensionInfo> ExtensionInfos
         {
             get { return _choosenExt; }
             set { _choosenExt = value; }

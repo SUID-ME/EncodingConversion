@@ -45,11 +45,12 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 GetDefaultExtensions()
             };
 
-            _recodingLogic = new RecodingLogic(_extensionInfos.ToList());
+            _recodingLogic = new RecodingLogic(_extensionInfos);
 
 
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
+            AddExtensionCommand = ReactiveCommand.Create(AddNewExtension);
 
             OutPutText = _dirPickSuggestion;
         }
@@ -74,6 +75,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
         public ReactiveCommand<Unit, Unit> RecodingCommand { get; }
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddExtensionCommand {  get; }
         #endregion Properties
 
         #region Methods
@@ -103,6 +105,11 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 RootDir = folders.First().Path.LocalPath;
                 OutPutText = _dirPickedDir + RootDir;
             }
+        }
+
+        public void AddNewExtension()
+        {
+            ExtensionInfos.Add(new("."));
         }
 
         private List<ExtensionInfo> GetDefaultExtensions()

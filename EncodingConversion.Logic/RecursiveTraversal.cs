@@ -1,12 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 
 namespace EncodingConversion.Logic
 {
-    internal class RecursiveTraversal(RewriteFile rewrite, List<ExtensionInfo> choosen)
+    internal class RecursiveTraversal(RewriteFile rewrite, ObservableCollection<ExtensionInfo> choosen)
     {
         private RewriteFile _rewriteFile = rewrite;
-        private List<ExtensionInfo> _choosenExtension = choosen;
+        private ObservableCollection<ExtensionInfo> _choosenExtension = choosen;
 
         private object _syncLock = new();
 
@@ -15,7 +16,7 @@ namespace EncodingConversion.Logic
             _recursion_logic(rootDir);
         }
 
-        public void UpdateExtensionList(List<ExtensionInfo> extensions)
+        public void UpdateExtensionList(ObservableCollection<ExtensionInfo> extensions)
         {
             lock(_syncLock)
             {
