@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 
 namespace EncodingConversion.Logic
 {
@@ -20,16 +19,6 @@ namespace EncodingConversion.Logic
         {
             RecursionLogic(rootDir, LocateExtogic);
         }
-
-        public void UpdateExtensionList(ObservableCollection<ExtensionInfo> extensions)
-        {
-            lock(_syncLock)
-            {
-                _choosenExtension = extensions;
-            }
-
-        }
-
 
         private void RecursionLogic(string curretDir, Action<string> action)
         {

@@ -1,5 +1,4 @@
 ﻿using EncodingConversion.Logic;
-using System.Text;
 using System.Windows;
 
 namespace EncodingConversion.WPF

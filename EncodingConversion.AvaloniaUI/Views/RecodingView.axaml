@@ -119,7 +119,7 @@
 
 			<!--#region MainButtons-->
 			<Grid Grid.Column="1" Margin="5">
-				<Button Command="{Binding RecodingCommand}" Content="Convert" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+				<Button Command="{Binding RecodingCommand}" Content="Начать" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right"/>
 			</Grid>
 			<!--#endregion MainButtons-->
 		</Grid>

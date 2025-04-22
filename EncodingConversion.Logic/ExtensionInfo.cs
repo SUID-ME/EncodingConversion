@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using ReactiveUI;
+﻿using ReactiveUI;
 using SeamSearchLaserScan.Logic.ProjectSettings;
+using System.Runtime.Serialization;
 
 namespace EncodingConversion.Logic
 {
@@ -16,7 +14,7 @@ namespace EncodingConversion.Logic
         public string Symbols
         {
             get { return _extensionSymbols; }
-            set {  this.RaiseAndSetIfChanged(ref _extensionSymbols, value); }
+            set { this.RaiseAndSetIfChanged(ref _extensionSymbols, value); }
         }
 
         [DataMember]

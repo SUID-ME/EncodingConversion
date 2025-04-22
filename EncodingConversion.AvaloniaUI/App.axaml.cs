@@ -5,13 +5,10 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using EncodingConversion.AvaloniaUI.ViewModels;
 using EncodingConversion.AvaloniaUI.Views;
-using EncodingConversion.Logic;
 using EncodingConversion.Logic.Settings;
 using ReactiveUI;
 using SeamSearchLaserScan.Logic.ProjectSettings;
 using Splat;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace EncodingConversion.AvaloniaUI

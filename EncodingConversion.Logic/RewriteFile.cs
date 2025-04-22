@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-using System.IO;
 using System.Text;
-using System.Windows;
 
 namespace EncodingConversion.Logic
 {
@@ -86,7 +84,8 @@ namespace EncodingConversion.Logic
                         Debug.WriteLine($"Файл '{filePath}' не соответствует указанной начальной кодировке");
                         encoding = enc;
                         return true;
-                    } else
+                    }
+                    else
                     {
                         return true;
                     }
