@@ -84,6 +84,9 @@
 							<Button Content="Remove Extension" Command="{Binding RemoveSelectedExtCommand}"
 									Background="LightGray" BorderThickness="1" BorderBrush="Black" 
 									HorizontalAlignment="Stretch"/>
+							<Button Content="Locate Extensions" Command="{Binding LocateExtensionsCommand}"
+									Background="LightGray" BorderThickness="1" BorderBrush="Black"
+									HorizontalAlignment="Stretch"/>
 						</StackPanel>
 					</Grid>
 				</Border>

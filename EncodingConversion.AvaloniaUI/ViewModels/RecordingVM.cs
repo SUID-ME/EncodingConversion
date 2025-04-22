@@ -53,6 +53,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
 
 
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
+            LocateExtensionsCommand = ReactiveCommand.CreateFromTask(RunLocateExtensionsAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
             AddExtensionCommand = ReactiveCommand.Create(AddNewExtension);
             RemoveSelectedExtCommand = ReactiveCommand.Create(RemoveExtension, this.WhenAnyValue(x => x.IsCanExecuteRemoveExt));
@@ -88,6 +89,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
         public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
         public ReactiveCommand<Unit, Unit> RemoveSelectedExtCommand { get; }
+        public ReactiveCommand<Unit, Unit> LocateExtensionsCommand { get; }
         #endregion Properties
 
         #region Methods
@@ -102,11 +104,28 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             OutPutText = _recodingDirText + _rootDir;
             await Task.Run(() =>
             {
-                _recodingLogic.Run(RootDir);
+                _recodingLogic.RunRecoding(RootDir);
             });
 
             OutPutText = _recodingDoneText;
             RootDir = string.Empty;
+        }
+
+        public async Task RunLocateExtensionsAsync()
+        {
+            if (string.IsNullOrEmpty(RootDir) || Directory.Exists(RootDir) == false)
+            {
+                OutPutText = _dirPickErrorText;
+                return;
+            }
+
+
+            OutPutText = "Начан поиск расширений в папке: " + _rootDir;
+            await Task.Run(() =>
+            {
+                _recodingLogic.LocateExtensions(RootDir);
+            });
+            OutPutText = "Поиск расширений завершен";
         }
 
         public async Task PickRootDirAsync()

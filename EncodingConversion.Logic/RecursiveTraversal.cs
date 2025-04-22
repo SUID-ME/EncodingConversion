@@ -13,7 +13,12 @@ namespace EncodingConversion.Logic
 
         public void RunTraversal(string rootDir)
         {
-            _recursion_logic(rootDir);
+            RecursionLogic(rootDir, RecodeByLogic);
+        }
+
+        public void LocateExtensions(string rootDir)
+        {
+            RecursionLogic(rootDir, LocateExtogic);
         }
 
         public void UpdateExtensionList(ObservableCollection<ExtensionInfo> extensions)
@@ -25,32 +30,38 @@ namespace EncodingConversion.Logic
 
         }
 
-        private void _recursion_logic(string curretDir)
+
+        private void RecursionLogic(string curretDir, Action<string> action)
         {
             string[] allfiles = Directory.GetFiles(curretDir);
             foreach (string file in allfiles)
             {
-                string extension = Path.GetExtension(file);
-                if (_checkSupportExt(extension))
-                {
-                    if (_rewriteFile.Rewrite(file) == false)
-                    {
-                        Debug.WriteLine($"File '{file} is not recoding'");
-                    }
-                }
+                action(file);
             }
 
             Array.Clear(allfiles);
             string[] allDirs = Directory.GetDirectories(curretDir);
             foreach (string dir in allDirs)
             {
-                _recursion_logic(dir);
+                RecursionLogic(dir, action);
             }
         }
 
-        private bool _checkSupportExt(string extension)
+        private void RecodeByLogic(string file)
         {
-            lock(_syncLock)
+            string extension = Path.GetExtension(file);
+            if (CheckSupportedExt(extension))
+            {
+                if (_rewriteFile.Rewrite(file) == false)
+                {
+                    Debug.WriteLine($"File '{file} is not recoding'");
+                }
+            }
+        }
+
+        private bool CheckSupportedExt(string extension)
+        {
+            lock (_syncLock)
             {
                 foreach (var ext in _choosenExtension)
                 {
@@ -62,6 +73,15 @@ namespace EncodingConversion.Logic
             }
 
             return false;
+        }
+
+        private void LocateExtogic(string file)
+        {
+            string extension = Path.GetExtension(file);
+            if (_choosenExtension.Any(x => x.Symbols == extension) == false)
+            {
+                _choosenExtension.Add(new ExtensionInfo(extension, false));
+            }
         }
     }
 }

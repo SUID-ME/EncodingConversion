@@ -13,31 +13,26 @@ namespace EncodingConversion.Logic
         private RecursiveTraversal _traversal;
         private ObservableCollection<ExtensionInfo> _choosenExt;
 
-        public RecodingLogic(ObservableCollection<ExtensionInfo> extensions = null)
+        public RecodingLogic(ObservableCollection<ExtensionInfo> extensions)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
             _rewriteFile = new RewriteFile(win1251);
-
-            if (extensions == null)
-            {
-                extensions = new ObservableCollection<ExtensionInfo>() {
-                    new ExtensionInfo(".tst1"),
-                    new ExtensionInfo(".tst2"),
-                    new ExtensionInfo(".tst3"),
-                };
-            }
-
             _choosenExt = extensions;
 
             _traversal = new RecursiveTraversal(_rewriteFile, _choosenExt);
 
         }
 
-        public void Run(string rootDir)
+        public void RunRecoding(string rootDir)
         {
             _traversal.RunTraversal(rootDir);
+        }
+
+        public void LocateExtensions(string rootDir)
+        {
+            _traversal.LocateExtensions(rootDir);
         }
 
         public ObservableCollection<ExtensionInfo> ExtensionInfos
