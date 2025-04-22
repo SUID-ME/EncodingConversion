@@ -54,9 +54,12 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
 
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
             LocateExtensionsCommand = ReactiveCommand.CreateFromTask(RunLocateExtensionsAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
+            ClearExtensionsCommand = ReactiveCommand.Create(ClearExtensions);
+            ClearDisabladExtensionsCommand = ReactiveCommand.Create(ClearDisableExtensions);
             PickRootDirCommand = ReactiveCommand.CreateFromTask(PickRootDirAsync);
             AddExtensionCommand = ReactiveCommand.Create(AddNewExtension);
             RemoveSelectedExtCommand = ReactiveCommand.Create(RemoveExtension, this.WhenAnyValue(x => x.IsCanExecuteRemoveExt));
+            EnableOrDisableAllExtensionsCommand = ReactiveCommand.Create(EnableOrDisableAllList);
 
             OutPutText = _dirPickSuggestion;
         }
@@ -64,6 +67,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
 
         #region Properties
         public Interaction<Unit, IReadOnlyList<IStorageFolder>> ShowFilePiker { get; } = new();
+        public bool IsCheckedAllEnable { get; set; }
         public string OutPutText
         {
             get { return _outputText; }
@@ -90,6 +94,9 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
         public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
         public ReactiveCommand<Unit, Unit> RemoveSelectedExtCommand { get; }
         public ReactiveCommand<Unit, Unit> LocateExtensionsCommand { get; }
+        public ReactiveCommand<Unit, Unit> ClearExtensionsCommand { get; }
+        public ReactiveCommand<Unit, Unit> ClearDisabladExtensionsCommand { get; }
+        public ReactiveCommand<Unit, Unit> EnableOrDisableAllExtensionsCommand { get; }
         #endregion Properties
 
         #region Methods
@@ -120,7 +127,7 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             }
 
 
-            OutPutText = "Начан поиск расширений в папке: " + _rootDir;
+            OutPutText = "Начат поиск расширений в папке: " + _rootDir;
             await Task.Run(() =>
             {
                 _recodingLogic.LocateExtensions(RootDir);
@@ -151,6 +158,26 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             }
         }
 
+        public void ClearExtensions()
+        {
+            _extensionInfos.Clear();
+        }
+
+        public void ClearDisableExtensions()
+        {
+            List<ExtensionInfo> clearList = [];
+
+            foreach (var extensionInfo in ExtensionInfos)
+            {
+                if (extensionInfo.IsEnable == false)
+                {
+                    clearList.Add(extensionInfo);
+                }
+            }
+
+            _extensionInfos.Remove(clearList);
+        }
+
         private ObservableCollection<ExtensionInfo> GetSettingsInfo()
         {
             var ret = App.ProjectSettings.ExtensionInfoData;
@@ -160,6 +187,18 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             }
 
             return ret;
+        }
+
+        private void EnableOrDisableAllList()
+        {
+            foreach (var extensionInfo in ExtensionInfos)
+            {
+                if (extensionInfo.IsEnable != IsCheckedAllEnable)
+                {
+                    extensionInfo.IsEnable = IsCheckedAllEnable;
+                }
+
+            }
         }
 
         private List<ExtensionInfo> GetDefaultExtensions()

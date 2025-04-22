@@ -10,7 +10,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="EncodingConversion.AvaloniaUI"
 		Height="300" Width="800"
-        MinHeight="300" MinWidth="800"
+        MinHeight="500" MinWidth="1200"
 		WindowStartupLocation="CenterScreen"
 		Closing="OnWindowClosing">
 
