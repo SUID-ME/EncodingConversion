@@ -11,6 +11,57 @@
     {
       "Symbols": ".h",
       "IsEnable": true
+    },
+    {
+      "Symbols": ".cs",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cpp",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".h",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cs",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cpp",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".h",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cs",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cpp",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".h",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cs",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".cpp",
+      "IsEnable": true
+    },
+    {
+      "Symbols": ".h",
+      "IsEnable": true
     }
-  ]
+  ],
+  "IsNeedResetFolder": false,
+  "IsNeedCheckSourceEncoding": false,
+  "IsNeedAutoSelectSourceEncoding": false
 }

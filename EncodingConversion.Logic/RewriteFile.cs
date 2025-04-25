@@ -23,7 +23,7 @@ namespace EncodingConversion.Logic
         {
             Encoding encoding = _encFrom;
 
-            if (CheckEncoding(filepath, ref encoding) == false)
+            if (RecodingLogic.Settings.IsNeedCheckSourceEncoding == true && CheckEncoding(filepath, ref encoding) == false)
             {
                 return false;
             }
@@ -81,9 +81,16 @@ namespace EncodingConversion.Logic
                     }
                     else if (enc != _encFrom)
                     {
-                        Debug.WriteLine($"Файл '{filePath}' не соответствует указанной начальной кодировке");
-                        encoding = enc;
-                        return true;
+                        
+                        if (RecodingLogic.Settings.IsNeedAutoSelectSourceEncoding == true)
+                        {
+                            Debug.WriteLine($"Файл '{filePath}' не соответствует кодировке. Меняем кодировку на " + enc);
+                            encoding = enc;
+                            return true;
+                        }
+
+                        Debug.WriteLine($"Файл '{filePath}' не соответствует кодировке");
+                        return false;
                     }
                     else
                     {

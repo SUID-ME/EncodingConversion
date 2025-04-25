@@ -62,22 +62,20 @@
 						</Grid.RowDefinitions>
 
 						<Border Background="DarkGray" Margin="5" CornerRadius="5">
-							<StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-								<CheckBox Margin="17, 0" IsChecked="{Binding IsCheckedAllEnable}" 
-										  Command="{Binding EnableOrDisableAllExtensionsCommand}"/>
-								<TextBlock Text="Вкл/Выкл все" VerticalAlignment="Center" FontSize="16"/>
-							</StackPanel>
+							<CheckBox Margin="17, 0" Content="Вкл/Выкл все"
+									  IsChecked="{Binding IsCheckedAllEnable}"
+									  Command="{Binding EnableOrDisableAllExtensionsCommand}"/>
 						</Border>
-						
+
 						<Border Grid.Row="1" Grid.Column="0" CornerRadius="10"
 								BorderThickness="4" BorderBrush="DimGray" Background="DarkGray">
 							<ListBox ItemsSource="{Binding ExtensionInfos}"
-									 SelectedItem="{Binding SelectedExtension}" 
+									 SelectedItem="{Binding SelectedExtension}"
 									 BackgroundSizing="InnerBorderEdge"
 									 Background="Transparent" MinWidth="15">
 								<ListBox.ItemTemplate>
 									<DataTemplate>
-										<Border Background="SlateGray" CornerRadius="10" 
+										<Border Background="SlateGray" CornerRadius="10"
 												BorderBrush="DimGray" BorderThickness="2">
 											<StackPanel Orientation="Horizontal" Margin="5" Spacing="10">
 												<CheckBox IsChecked="{Binding IsEnable}" Content="Вкл"/>
@@ -92,10 +90,10 @@
 
 						<StackPanel Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Stretch" Spacing="3" Margin="5">
 							<Button Content="Добавить расширение" Command="{Binding AddExtensionCommand}"
-									Background="LightGray" BorderThickness="1" BorderBrush="Black" 
+									Background="LightGray" BorderThickness="1" BorderBrush="Black"
 									HorizontalAlignment="Stretch"/>
 							<Button Content="Убрать расширение" Command="{Binding RemoveSelectedExtCommand}"
-									Background="LightGray" BorderThickness="1" BorderBrush="Black" 
+									Background="LightGray" BorderThickness="1" BorderBrush="Black"
 									HorizontalAlignment="Stretch"/>
 							<Button Content="Очистить список" Command="{Binding ClearExtensionsCommand}"
 									Background="LightGray" BorderThickness="1" BorderBrush="Black"
@@ -112,6 +110,35 @@
 				<!--#endregion ExtensionsList-->
 
 				<!-- #region Properties -->
+				<Grid Grid.Column="1">
+					<Grid.RowDefinitions>
+						<RowDefinition MaxHeight="170"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Border Background="DimGray" Grid.Row="0"
+						CornerRadius="5" Margin="5">
+						<StackPanel Grid.Row="0" Margin="5">
+							<CheckBox Content="Очищать путь после перекодировки"
+									  IsChecked="{Binding IsNeedResetFolder}"/>
+							<CheckBox Content="Проверять соответсвие исходной кодировки"
+									  IsChecked="{Binding IsNeedCheckSourceEncoding}"/>
+							<CheckBox Content="Автоматически определять кодировку"
+									  IsChecked="{Binding IsNeedAutoSelectSourceEncoding}"
+									  IsEnabled="{Binding IsNeedCheckSourceEncoding}">
+							</CheckBox>
+						</StackPanel>
+					</Border>
+					<!--<Border Grid.Row="1" MaxHeight="40" VerticalAlignment="Top" Margin="5"
+							Background="DimGray" CornerRadius="5">
+						<StackPanel Orientation="Horizontal" Margin="5" Spacing="5">
+							<TextBlock Text="Из кодировки" VerticalAlignment="Center"/>
+							<ComboBox></ComboBox>
+							<TextBlock Text="В" VerticalAlignment="Center"/>
+							<ComboBox></ComboBox>
+						</StackPanel>
+					</Border>-->
+				</Grid>
 
 				<!-- #endregion Properties -->
 			</Grid>

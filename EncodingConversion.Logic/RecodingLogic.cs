@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using EncodingConversion.Logic.Settings;
+using System.Collections.ObjectModel;
+using System.Runtime;
 using System.Text;
 
 namespace EncodingConversion.Logic
@@ -9,13 +11,15 @@ namespace EncodingConversion.Logic
         private RecursiveTraversal _traversal;
         private ObservableCollection<ExtensionInfo> _choosenExt;
 
-        public RecodingLogic(ObservableCollection<ExtensionInfo> extensions)
+        public RecodingLogic(ProjectSettings settings)
         {
+            Settings = settings;
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding win1251 = Encoding.GetEncoding("Windows-1251");
 
             _rewriteFile = new RewriteFile(win1251);
-            _choosenExt = extensions;
+            _choosenExt = Settings.ExtensionInfoData;
 
             _traversal = new RecursiveTraversal(_rewriteFile, _choosenExt);
 
@@ -36,5 +40,7 @@ namespace EncodingConversion.Logic
             get { return _choosenExt; }
             set { _choosenExt = value; }
         }
+
+        public static ProjectSettings Settings;
     }
 }

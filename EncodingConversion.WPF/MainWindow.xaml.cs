@@ -27,7 +27,8 @@ namespace EncodingConversion.WPF
 
             ConvertButton.IsEnabled = false;
 
-            recodingLogic = new RecodingLogic([]);
+            
+            recodingLogic = new RecodingLogic(new ());
             Output.Text = _dirPickSuggestion;
         }
         #endregion Constructor

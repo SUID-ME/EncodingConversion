@@ -44,9 +44,8 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 Select(extInfo => (extInfo != null))
                 .ToProperty(this, x => x.IsCanExecuteRemoveExt);
 
-            _extensionInfos = GetSettingsInfo();
-
-            _recodingLogic = new RecodingLogic(_extensionInfos);
+            _extensionInfos = App.ProjectSettings.ExtensionInfoData;
+            _recodingLogic = new RecodingLogic(App.ProjectSettings);
 
 
             RecodingCommand = ReactiveCommand.CreateFromTask(RunRecodingMethodAsync, this.WhenAnyValue(x => x.IsCanExecuteRecoding));
@@ -86,6 +85,35 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
 
         public bool IsCanExecuteRecoding => _isCanExecuteRecording.Value;
         public bool IsCanExecuteRemoveExt => _isCanExecuteRemoveExt.Value;
+        public bool IsNeedResetFolder
+        {
+            get;
+            set {
+                this.RaiseAndSetIfChanged(ref field, value);
+                App.ProjectSettings.IsNeedResetFolder = value;
+            }
+        } = App.ProjectSettings.IsNeedResetFolder;
+
+        public bool IsNeedCheckSourceEncoding
+        {
+            get;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref field, value);
+                App.ProjectSettings.IsNeedCheckSourceEncoding = value;
+            }
+        } = App.ProjectSettings.IsNeedCheckSourceEncoding;
+
+        public bool IsNeedAutoSelectSourceEncoding
+        {
+            get;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref field, value);
+                App.ProjectSettings.IsNeedAutoSelectSourceEncoding = value;
+            }
+        } = App.ProjectSettings.IsNeedAutoSelectSourceEncoding;
+
         public ReactiveCommand<Unit, Unit> RecodingCommand { get; }
         public ReactiveCommand<Unit, Unit> PickRootDirCommand { get; }
         public ReactiveCommand<Unit, Unit> AddExtensionCommand { get; }
@@ -111,8 +139,15 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 _recodingLogic.RunRecoding(RootDir);
             });
 
-            OutPutText = _recodingDoneText;
-            RootDir = string.Empty;
+            if (IsNeedResetFolder == true)
+            {
+                OutPutText = _recodingDoneText;
+                RootDir = string.Empty;
+            }
+            else
+            {
+                OutPutText = "Перекодировка завершена, можете продолжить. Текущий путь: " + RootDir;
+            }
         }
 
         public async Task RunLocateExtensionsAsync()
@@ -175,17 +210,6 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
             _extensionInfos.Remove(clearList);
         }
 
-        private ObservableCollection<ExtensionInfo> GetSettingsInfo()
-        {
-            var ret = App.ProjectSettings.ExtensionInfoData;
-            if (ret != null && ret.Count == 0)
-            {
-                ret.AddRange(GetDefaultExtensions());
-            }
-
-            return ret;
-        }
-
         private void EnableOrDisableAllList()
         {
             foreach (var extensionInfo in ExtensionInfos)
@@ -196,16 +220,6 @@ namespace EncodingConversion.AvaloniaUI.ViewModels
                 }
 
             }
-        }
-
-        private List<ExtensionInfo> GetDefaultExtensions()
-        {
-            return new List<ExtensionInfo>()
-            {
-                new ExtensionInfo(".cs"),
-                new ExtensionInfo(".cpp"),
-                new ExtensionInfo(".h")
-            };
         }
         #endregion Methods
     }

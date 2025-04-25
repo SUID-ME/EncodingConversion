@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using EncodingConversion.Logic.Settings;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace EncodingConversion.Logic
@@ -17,7 +18,7 @@ namespace EncodingConversion.Logic
 
         public void LocateExtensions(string rootDir)
         {
-            RecursionLogic(rootDir, LocateExtogic);
+            RecursionLogic(rootDir, LocateExtLogic);
         }
 
         private void RecursionLogic(string curretDir, Action<string> action)
@@ -64,7 +65,7 @@ namespace EncodingConversion.Logic
             return false;
         }
 
-        private void LocateExtogic(string file)
+        private void LocateExtLogic(string file)
         {
             string extension = Path.GetExtension(file);
             if (_choosenExtension.Any(x => x.Symbols == extension) == false)
